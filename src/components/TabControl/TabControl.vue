@@ -12,30 +12,24 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue"
+<script lang="ts" setup>
+import { ref } from "vue"
 
-export default defineComponent({
-    props: {
-        titles: {
-            type: Array,
-            required: true
-        }
-    },
-    emits: ["titleClick"],
-    setup(props, ctx) {
-        const currentIndex = ref(0)
-
-        const changeCurrentIndex = (index: number) => {
-            currentIndex.value = index
-            ctx.emit("titleClick", currentIndex.value)
-        }
-        return {
-            currentIndex,
-            changeCurrentIndex
-        }
+defineProps({
+    titles: {
+        type: Array,
+        required: true
     }
 })
+
+const emit = defineEmits(["titleClick"])
+
+const currentIndex = ref(0)
+
+const changeCurrentIndex = (index: number) => {
+    currentIndex.value = index
+    emit("titleClick", currentIndex.value)
+}
 </script>
 
 <style scoped>
